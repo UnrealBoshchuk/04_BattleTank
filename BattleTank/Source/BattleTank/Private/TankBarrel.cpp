@@ -3,7 +3,7 @@
 #include "TankBarrel.h"
 
 
-void Elevate(float DegreesPerSecond)
+void UTankBarrel::Elevate(float DegreesPerSecond)
 {
 	// Move the barrel the right amount this frame
 
