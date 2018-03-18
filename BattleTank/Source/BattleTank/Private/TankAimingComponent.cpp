@@ -3,18 +3,19 @@
 #include "TankAimingComponent.h"
 #include "BattleTank.h"
 #include "TankBarrel.h"
-
+#include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	bWantsBeginPlay = true;
+	//bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
 }
+
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
@@ -34,12 +35,32 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		StartLocation,
 		HitLocation,
 		LaunchSpeed,
+		false,
+		0,
+		0,
 		ESuggestProjVelocityTraceOption::DoNotTrace
 	);
 	if (bHaveAimSolution)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(
+			LogTemp,
+			Warning,
+			TEXT("%f: aim solution found..."),
+			Time
+		);
+	}
+	else
+	{
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(
+			LogTemp,
+			Warning,
+			TEXT("%f: No aim solve found..."),
+			Time
+		);
 	}
 	// If no solution found do nothing
 }
