@@ -4,12 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+//#include "Projectile.h"
 #include "Tank.generated.h"
 
+class AProjectile;
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
-class AProjectile;
+
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -47,4 +49,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	// local reference for spawning projectile
+	UTankBarrel* Barrel = nullptr;
 };
