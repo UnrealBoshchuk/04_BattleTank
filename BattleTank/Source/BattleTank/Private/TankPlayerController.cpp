@@ -7,17 +7,6 @@
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	auto ControlledTank = GetControlledTank();
-	if(!ControlledTank)
-	{
-		UE_LOG(LogTemp, Warning,TEXT( "PlayerController not possesing a tank"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning,TEXT( "PlayerController possessing: %s"),
-			*(ControlledTank->GetName()));
-	}
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -46,7 +35,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 
 bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
 {
-	// Find the crosshair position
+	// Find the cross-hair position
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 
@@ -67,7 +56,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
 {
-	FVector CameraWorldLocation; // TO be discared
+	FVector CameraWorldLocation; // TO be discarded
 	
 	return DeprojectScreenPositionToWorld(
 		ScreenLocation.X,

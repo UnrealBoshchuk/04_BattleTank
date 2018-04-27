@@ -20,6 +20,6 @@ public:
 	void SetThrottle(float Throttle);
 	
 	// Max force per track, in nutons
-	//UPROPERTY(EditDefaultsOnly)
-	//float TrackMaxDrivingForce = 
+	UPROPERTY(EditDefaultsOnly)
+	float TrackMaxDrivingForce = 41000; // Assume 41 ton and 1g acceleration
 };
