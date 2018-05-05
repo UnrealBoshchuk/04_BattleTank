@@ -4,14 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-//#include "Projectile.h"
 #include "Tank.generated.h"
 
 class AProjectile;
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
-
+class UTankMovementComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -32,9 +31,10 @@ public:
 	void Fire();
 
 protected:
-
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
