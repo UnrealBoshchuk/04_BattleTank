@@ -13,14 +13,14 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	if (!Cast<ATank>(GetPawn())) { return; }
+	if (!ensure(Cast<ATank>(GetPawn()))) { return; }
 
 	//auto PlayerTank = GetPlayerTank();
 
 	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	auto ControlledTank =  Cast<ATank>(GetPawn());
 
-	if (PlayerTank)
+	if (ensure((PlayerTank)))
 	{
 		MoveToActor(PlayerTank, AcceptanceRadius); // todo check radios is in cm
 

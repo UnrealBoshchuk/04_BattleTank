@@ -8,6 +8,8 @@
 #include "TankPlayerController.generated.h" // must be last included
 
 class ATank;
+class UTankAimingComponent;
+
 /**
  * 
  */
@@ -17,6 +19,13 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 	
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank* GetControlledTank() const;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimingComponent* AimingCompRef);
+
 private:
 
 	UPROPERTY(EditDefaultsOnly)
@@ -28,9 +37,6 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000;
 
-protected:
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	ATank* GetControlledTank() const;
 
 public:
 
