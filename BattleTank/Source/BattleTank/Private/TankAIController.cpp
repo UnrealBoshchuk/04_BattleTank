@@ -24,8 +24,8 @@ void ATankAIController::Tick(float DeltaTime)
 	
 	MoveToActor(PlayerTank, AcceptanceRadius); // todo check radios is in cm
 		
-	ControlledTank->FindComponentByClass<UTankAimingComponent>()-> AimAt(PlayerTank->GetActorLocation());
-	// TODO fix firing
-	//ControlledTank->Fire(); // TODO need limit firing rate
-	
+	auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
+	AimingComponent-> AimAt(PlayerTank->GetActorLocation());
+
+	AimingComponent->Fire(); // TODO need limit firing rate
 }
