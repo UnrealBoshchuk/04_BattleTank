@@ -18,17 +18,36 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Aim Comp. ticking"));
-	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
+	
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
 	{
+		//UE_LOG(LogTemp, Warning, TEXT("Reloading"));
 		FiringStatus = EFiringStatus::Reloading;
 	}
-	//TODO hadle aiming and reloding
+	else if (IsBarrelMoving())
+	{
+	//	UE_LOG(LogTemp, Warning, TEXT("Aiming"));
+		FiringStatus = EFiringStatus::Aiming;
+	}
+	else
+	{
+	//	UE_LOG(LogTemp, Warning, TEXT("Locked"));
+		FiringStatus = EFiringStatus::Locked;
+	}
 }
 
 void UTankAimingComponent::BeginPlay()
 {
 	LastFireTime = FPlatformTime::Seconds();
+}
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) { return false; }
+
+	auto BarrelForward = Barrel->GetForwardVector();
+
+	return !(BarrelForward.Equals(AimDirection, 0.01f));
 }
 
 
@@ -60,7 +79,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	);
 	if (bHaveAimSolution)
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		AimDirection = OutLaunchVelocity.GetSafeNormal();
 		
 		MoveBarrelTowards(AimDirection);
 	}
