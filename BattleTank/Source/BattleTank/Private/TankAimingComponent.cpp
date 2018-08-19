@@ -36,6 +36,11 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	}
 }
 
+EFiringStatus UTankAimingComponent::GetFiringState() const
+{
+	return FiringStatus;
+}
+
 void UTankAimingComponent::BeginPlay()
 {
 	LastFireTime = FPlatformTime::Seconds();
@@ -99,8 +104,17 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
-	Turret->Rotate(DeltaRotator.Yaw);
 	Barrel->Elevate(DeltaRotator.Pitch);
+
+	// Alwas yaw the shortest wat
+	if (FMath::Abs(DeltaRotator.Yaw) < 180)
+	{
+		Turret->Rotate(DeltaRotator.Yaw);
+	}
+	else
+	{
+		Turret->Rotate(- DeltaRotator.Yaw);
+	}
 	
 }
 
