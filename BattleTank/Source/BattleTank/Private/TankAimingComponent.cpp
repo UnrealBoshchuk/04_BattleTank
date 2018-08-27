@@ -44,7 +44,7 @@ EFiringStatus UTankAimingComponent::GetFiringState() const
 	return FiringStatus;
 }
 
-int UTankAimingComponent::GetRoundLeft() const
+int32 UTankAimingComponent::GetRoundsLeft() const
 {
 	return RoundsLeft;
 }
@@ -128,8 +128,8 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 void UTankAimingComponent::Fire()
 {
-	if (FiringStatus == EFiringStatus::Reloading 
-		&& FiringStatus == EFiringStatus::Aiming)
+	if (FiringStatus == EFiringStatus::Locked 
+		|| FiringStatus == EFiringStatus::Aiming)
 	{
 		if (!ensure(Barrel)) { return; }
 		if (!ensure(ProjectileBlueprint)) { return; }
