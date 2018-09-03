@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "Tank.h"
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
 #include "Engine/World.h"
@@ -13,6 +14,26 @@ void ATankPlayerController::BeginPlay()
 	FoundAimingComponent(AimingComponent);
 	
 }
+
+void ATankPlayerController::SetPawn(APawn * InPawn)
+{
+    Super::SetPawn(InPawn);
+    if (InPawn)
+    {
+        auto PossessedTank = Cast<ATank>(InPawn);
+        if(!ensure (PossessedTank)) {return;}
+
+        // subscribe on death
+        PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossedTankDeath);
+    }
+}
+
+void ATankPlayerController::OnPossedTankDeath()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Recive"));
+	StartSpectatingOnly();
+}
+
 
 void ATankPlayerController::Tick(float DeltaTime)
 {
