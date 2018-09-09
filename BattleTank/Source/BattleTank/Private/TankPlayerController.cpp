@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Tank.h"
+
 #include "TankPlayerController.h"
+#include "Tank.h"
 #include "TankAimingComponent.h"
 #include "Engine/World.h"
 
@@ -96,7 +97,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 		HitResult,
 		StartLocation,
 		EndLocation,
-		ECollisionChannel::ECC_Visibility
+		ECollisionChannel::ECC_Camera
 	))
 	{
 		HitLocation = HitResult.Location;

@@ -1,7 +1,8 @@
 // Battle Ground Test Project From Udemy. Student - Victor Boschuk
 
-#include "Kismet/GameplayStatics.h"
+
 #include "Projectile.h"
+#include "Kismet/GameplayStatics.h"
 #include "ParticleHelper.h"
 #include "Particles/ParticleSystem.h"
 #include "Particles/ParticleSystemComponent.h"
