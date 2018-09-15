@@ -6,6 +6,7 @@
 #include "Components/SceneComponent.h"
 #include "SpawnPoint.generated.h"
 
+class AActor;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API USpawnPoint : public USceneComponent
